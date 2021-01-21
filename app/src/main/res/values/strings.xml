@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">DadJokes</string>
+    <string name="generate">Generate</string>
 </resources>
