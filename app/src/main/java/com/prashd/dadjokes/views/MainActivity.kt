@@ -7,6 +7,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.prashd.dadjokes.R
 import com.prashd.dadjokes.databinding.ActivityMainBinding
 import com.prashd.dadjokes.repository.JokeRepository
 
@@ -19,9 +20,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setTheme(R.style.Theme_DadJokes)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         val tf: Typeface = Typeface.createFromAsset(assets, "fonts/Raleway-Regular.ttf")
         binding.tvTest.typeface = tf
         binding.tvTest.movementMethod = ScrollingMovementMethod()
