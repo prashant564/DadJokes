@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.prashd.dadjokes.network.JokeUI
 import com.prashd.dadjokes.repository.JokeRepository
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.io.IOException
 
@@ -17,15 +19,15 @@ class JokeViewModel(private val jokeRepository: JokeRepository) : ViewModel() {
     }
 
     fun getRandomDadJoke() = viewModelScope.launch {
-        try {
-            val response = jokeRepository.getDadJokeFromNetwork()
-            if (response.isSuccessful) {
+        jokeRepository.getDadJokeFromNetwork()
+            .catch {e ->
+                Log.d("Joke", "${e.message}")
+            }
+            .collect {response ->
                 response.body().let {
                     randomJoke.postValue(it)
-                }
             }
-        } catch (e: IOException) {
-            Log.d("Joke", "${e.message}")
-        }
+    }
+
     }
 }
