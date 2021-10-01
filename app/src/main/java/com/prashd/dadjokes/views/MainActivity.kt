@@ -1,9 +1,13 @@
 package com.prashd.dadjokes.views
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.graphics.Typeface
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -45,6 +49,13 @@ class MainActivity : AppCompatActivity() {
                     binding.tvTest.text = it.joke
                 }
             })
+        }
+
+        binding.tvTest.setOnClickListener {
+            val clipboardManager = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val clipData = ClipData.newPlainText("text", binding.tvTest.text)
+            clipboardManager.setPrimaryClip(clipData)
+            Toast.makeText(this, "Joke copied to clipboard", Toast.LENGTH_LONG).show()
         }
     }
 }
